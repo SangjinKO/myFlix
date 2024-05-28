@@ -60,6 +60,7 @@
             width: 100%;
         }
     </style>
+    <script src="key.js"></script>
     <script type="module">
         // Firebase SDK 
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
@@ -68,15 +69,7 @@
         import { getDocs } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 
         // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-        const firebaseConfig = {
-        apiKey: "AIzaSyA3x6DTbj3_X13SUAtmXXOd19k1KcMZvJo",
-        authDomain: "spartaproject-86d31.firebaseapp.com",
-        projectId: "spartaproject-86d31",
-        storageBucket: "spartaproject-86d31.appspot.com",
-        messagingSenderId: "555159039220",
-        appId: "1:555159039220:web:0f68fae62961c00cb2c2a1",
-        measurementId: "G-MFRT6YGBSM"
-        };
+        const firebaseConfig = FIREBASE_config
 
         // Firebase Init
         const app = initializeApp(firebaseConfig);
@@ -99,16 +92,27 @@
             window.location.reload();
         })
 
-
-        let url = "http://spartacodingclub.shop/sparta_api/weather/seoul";
-        fetch(url).then(res => res.json()).then(data => {
-            let temp = data['temp'];
-            let clouds = data['clouds'];
-            let icon = data['icon'];
-            $('#temp').text(temp);
-            $('#clouds').text(clouds);
+        // Movie Rank API (Korea), OpenAPI
+        console.log(MOVIEAPI_config.URL)
+        fetch(MOVIEAPI_config.URL).then(res => res.json()).then(data => {
+            let rankList = data['boxOfficeResult']['dailyBoxOfficeList'];
+            let name_rank1 = rankList[0]['movieNm'];
+            let aud_rank1 = rankList[0]['audiAcc'];
+            let name_rank2 = rankList[1]['movieNm'];
+            let aud_rank2 = rankList[1]['audiAcc'];
+            let name_rank3 = rankList[2]['movieNm'];
+            let aud_rank3 = rankList[2]['audiAcc'];
+            $('#name_rank1').text(name_rank1);
+            $('#aud_rank1').text(parseInt(aud_rank1, 10).toLocaleString("en-US"));
+            $('#name_rank2').text(name_rank2);
+            $('#aud_rank2').text(parseInt(aud_rank2, 10).toLocaleString("en-US"));
+            $('#name_rank3').text(name_rank3);
+            $('#aud_rank3').text(parseInt(aud_rank3, 10).toLocaleString("en-US"));
+            $('#LASTDAY_disp').text(MOVIEAPI_config.LASTDAY_disp); 
 
         })
+
+        
 
         let docs = await getDocs(collection(db, "movies"));
         docs.forEach((doc) => {
@@ -151,9 +155,8 @@
                 </a>
 
                 <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                    <li><a href="#" class="nav-link px-2 text-danger">Sangjin's Flix</a></li>
-                    <li><a href="#" class="nav-link px-2 text-white">"Sangjin's Favorites and Recommendataions"</a></li>
-                    <li><a href="#" class="nav-link px-2 text-white">&nbsp;&nbsp;&nbsp;&nbsp; Current Weather in Seoul(Korea): Temp <span id="temp"></span>°C, Clouds <span id="clouds"></span></a></li>
+                    <li><a href="#" class="nav-link px-2 text-danger">MYFLIX</a></li>
+                    <li><a href="#" class="nav-link px-2 text-white">&nbsp&nbsp&nbsp&nbsp "Sangjin's Movie Review"</a></li>
                 
                 </ul>
 
@@ -165,9 +168,11 @@
     <div class="main">
         <div class="p-5 mb-4 bg-body-tertiary rounded-3">
             <div class="container-fluid py-5">
-                <h1 class="display-5 fw-bold">KINGDOM</h1>
-                <p class="col-md-8 fs-4">While strange rumors about their ill king grip a kingdom, the crown prince becomes their only hope against a mysterious plague overtaking the land.</p>
-                <button id="savebtn" type="button" class="btn btn-outline-light" >Add New Content</button>
+                <h1 class="display-5 fw-bold">Korea's Box Office Rankings<span style="font-size: 50%;"> (Last Week:</span><span id="LASTDAY_disp" style="font-size: 50%;"></span><span style="font-size: 50%;">)</span></h1>
+                <p class="col-md-8 fs-4">1. <span id="name_rank1"></span> (Total Audience: <span id="aud_rank1"></span>) </p>
+                <p class="col-md-8 fs-4">2. <span id="name_rank2"></span> (Total Audience: <span id="aud_rank2"></span>) </p>
+                <p class="col-md-8 fs-4">3. <span id="name_rank3"></span> (Total Audience: <span id="aud_rank3"></span>) </p>
+                <button id="savebtn" type="button" class="btn btn-outline-light" > Add a New Review to MYFLIX </button>
 
             </div>
         </div>
