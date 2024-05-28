@@ -95,7 +95,8 @@
 
         // Movie Rank API (Korea), OpenAPI
         console.log(MOVIEAPI_config.URL)
-        fetch(MOVIEAPI_config.URL).then(res => res.json()).then(data => {
+        URL = "https://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=d92f213c5c48e942e1aab0de7bd76775&itemPerPage=3&targetDt=" + LASTDAY
+        fetch(URL).then(res => res.json()).then(data => {
             let rankList = data['boxOfficeResult']['dailyBoxOfficeList'];
             let name_rank1 = rankList[0]['movieNm'];
             let aud_rank1 = rankList[0]['audiAcc'];
@@ -109,7 +110,7 @@
             $('#aud_rank2').text(parseInt(aud_rank2, 10).toLocaleString("en-US"));
             $('#name_rank3').text(name_rank3);
             $('#aud_rank3').text(parseInt(aud_rank3, 10).toLocaleString("en-US"));
-            $('#LASTDAY_disp').text(MOVIEAPI_config.LASTDAY_disp); 
+            $('#LASTDAY_disp').text(LASTDAY_disp); 
 
         })
 

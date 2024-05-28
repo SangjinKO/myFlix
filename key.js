@@ -18,6 +18,5 @@ const LASTDAY = year + month + day;
 const LASTDAY_disp = year + "-" + month + "-" + day;
 
 const MOVIEAPI_config = {
-    URL: "https://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=d92f213c5c48e942e1aab0de7bd76775&itemPerPage=3&targetDt=" + LASTDAY ,
-    LASTDAY_disp: LASTDAY_disp
+    URL: "https://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=d92f213c5c48e942e1aab0de7bd76775&itemPerPage=3&targetDt=" + LASTDAY 
     }
