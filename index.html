@@ -94,7 +94,7 @@
         })
 
         // Movie Rank API (Korea), OpenAPI
-        console.log(MOVIEAPI_config.URL)
+        // console.log(MOVIEAPI_config.URL)
         URL = "https://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=d92f213c5c48e942e1aab0de7bd76775&itemPerPage=3&targetDt=" + LASTDAY
         fetch(URL).then(res => res.json()).then(data => {
             let rankList = data['boxOfficeResult']['dailyBoxOfficeList'];
