@@ -77,6 +77,7 @@
         const db = getFirestore(app);
 
         $("#postingbtn").click(async function () {
+
             let image = $('#image').val();
             let title = $('#title').val();
             let comment = $('#comment').val();
@@ -88,8 +89,10 @@
                 'comment': comment,
                 'star': star
             };
-            await addDoc(collection(db, "movies"), doc);
-            alert('저장완료!');
+            
+            // await addDoc(collection(db, "movies"), doc); // BLOCK save button
+            alert('Sorry but the save function has been disabled in PROD for security reasons');
+            
             window.location.reload();
         })
 
